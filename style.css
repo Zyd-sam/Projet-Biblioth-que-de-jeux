@@ -2,9 +2,9 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #a8edea, #fed6e3); /*Couleur du fond en dégradé (à changer si besoin)*/
+    background: linear-gradient(135deg, #f600d1, #fed6e3); /*Couleur du fond en dégradé (à changer si besoin)*/
     padding: 30px;
-    min-height: 100px;
+    min-height: 110px;
 }
 
 .container {
