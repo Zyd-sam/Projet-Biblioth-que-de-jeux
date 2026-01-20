@@ -4,7 +4,7 @@ const symboles = ["☎️","📻","📺","🎞️","💿","🎵","🕰️","🚗
 let jeu = [...symboles, ...symboles];
 
 // Mélange des symboles
-jeu.sort(() => Math.random() - 2.5);
+jeu.sort(() => Math.random() - 0.5);
 
 let premiereCarte = null;
 let secondeCarte = null;
