@@ -1,54 +1,57 @@
-const gameBoard = document.getElementById("gameBoard");
+const cartes = document.querySelectorAll(".cartes");
 
-// 8 paires pour 16 cartes
-const symbols = ["🍎","🍌","🍒","🍇","🍉","🥝","🍍","🍓"];
-let cards = [...symbols, ...symbols]; // duplique les symboles
-cards = cards.sort(() => Math.random() - 0.5); // mélange aléatoire
+const symboles = ["☎️","📻","📺","🎞️","💿","🎵","🕰️","🚗"];
+let jeu = [...symboles, ...symboles];
 
-// Générer les cartes sur le plateau
-cards.forEach((symbol, index) => {
-    const card = document.createElement("div");
-    card.classList.add("carte");
-    card.dataset.symbol = symbol;
-    card.textContent = ""; // texte vide au début
-    card.addEventListener("click", () => revealCard(card));
-    gameBoard.appendChild(card);
+// Mélange des symboles
+jeu.sort(() => Math.random() - 0.5);
+
+let premiereCarte = null;
+let secondeCarte = null;
+let bloquer = false;
+
+// Assigner les symboles aux cartes
+cartes.forEach((carte, index) => {
+    carte.dataset.symbole = jeu[index];
+
+    carte.addEventListener("click", () => {
+        if (bloquer || carte.classList.contains("retournee")) return;
+
+        retournerCarte(carte);
+
+        if (!premiereCarte) {
+            premiereCarte = carte;
+        } else {
+            secondeCarte = carte;
+            bloquer = true;
+            verifierPaire();
+        }
+    });
 });
 
-let firstCard = null;
-let secondCard = null;
-
-function revealCard(card) {
-    if (card.textContent || secondCard) return; // ignore si déjà révélée ou en attente
-
-    card.textContent = card.dataset.symbol;
-    card.classList.add("revealed");
-
-    if (!firstCard) {
-        firstCard = card;
-    } else {
-        secondCard = card;
-        checkMatch();
-    }
+function retournerCarte(carte) {
+    carte.classList.add("retournee");
+    carte.innerHTML = carte.dataset.symbole;
 }
 
-function checkMatch() {
-    if (firstCard.dataset.symbol === secondCard.dataset.symbol) {
-        // paires trouvées, on les garde révélées
-        resetTurn();
+function verifierPaire() {
+    if (premiereCarte.dataset.symbole === secondeCarte.dataset.symbole) {
+        premiereCarte.classList.add("trouvee");
+        secondeCarte.classList.add("trouvee");
+        resetTour();
     } else {
-        // pas une paire, cacher après 1 seconde
         setTimeout(() => {
-            firstCard.textContent = "";
-            secondCard.textContent = "";
-            firstCard.classList.remove("revealed");
-            secondCard.classList.remove("revealed");
-            resetTurn();
-        }, 1000);
+            premiereCarte.classList.remove("retournee");
+            secondeCarte.classList.remove("retournee");
+            premiereCarte.innerHTML = `<span class="dos-cartes">🃏</span>`;
+            secondeCarte.innerHTML = `<span class="dos-cartes">🃏</span>`;
+            resetTour();
+        }, 900);
     }
 }
 
-function resetTurn() {
-    firstCard = null;
-    secondCard = null;
+function resetTour() {
+    premiereCarte = null;
+    secondeCarte = null;
+    bloquer = false;
 }
