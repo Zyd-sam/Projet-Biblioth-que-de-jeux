@@ -1,5 +1,4 @@
 const cartes = document.querySelectorAll(".cartes");
-
 const symboles = ["☎️","📻","📺","🎞️","💿","🎵","🕰️","🚗"];
 let jeu = [...symboles, ...symboles];
 
@@ -13,12 +12,13 @@ let bloquer = false;
 // Assigner les symboles aux cartes
 cartes.forEach((carte, index) => {
     carte.dataset.symbole = jeu[index];
-
+    // Ajouter le symbole dans la face de la carte
+    const faceCartes = carte.querySelector('.face-cartes');
+    faceCartes.textContent = jeu[index];
+    
     carte.addEventListener("click", () => {
         if (bloquer || carte.classList.contains("retournee")) return;
-
         retournerCarte(carte);
-
         if (!premiereCarte) {
             premiereCarte = carte;
         } else {
@@ -31,7 +31,6 @@ cartes.forEach((carte, index) => {
 
 function retournerCarte(carte) {
     carte.classList.add("retournee");
-    carte.innerHTML = carte.dataset.symbole;
 }
 
 function verifierPaire() {
@@ -43,8 +42,6 @@ function verifierPaire() {
         setTimeout(() => {
             premiereCarte.classList.remove("retournee");
             secondeCarte.classList.remove("retournee");
-            premiereCarte.innerHTML = `<span class="dos-cartes">🃏</span>`;
-            secondeCarte.innerHTML = `<span class="dos-cartes">🃏</span>`;
             resetTour();
         }, 900);
     }
