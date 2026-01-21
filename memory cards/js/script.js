@@ -47,6 +47,23 @@ function verifierPaire() {
     }
 }
 
+function nouvellePartie() {
+    // Réinitialiser les variables
+    premiereCarte = null;
+    secondeCarte = null;
+    bloquer = false;
+    
+    // Remélanger les symboles
+    jeu.sort(() => Math.random() - 0.5);
+    
+    // Réinitialiser les cartes
+    cartes.forEach((carte, index) => {
+        carte.classList.remove("retournee", "trouvee");
+        carte.dataset.symbole = jeu[index];
+        carte.querySelector('.face-cartes').textContent = jeu[index];
+    });
+}
+
 function resetTour() {
     premiereCarte = null;
     secondeCarte = null;
