@@ -1,13 +1,14 @@
-// Score du jeu
+//Etat du jeu
 
-const game ={
-    score: 0, //Trump total
-    tpc: 1, //Trump par click
-    tps: 0, //Trump par seconde
-    upgrades: {}
-}
+const game = {
+  score: 0, // Trump total
+  tpc: 1, // Trump par click
+  tps: 0, // Trump par seconde
+  upgrades: {},
+};
 
-// Sélecteurs
+
+//Sélecteurs
 
 const element = {
   score: document.querySelector(".trump-cost"),
@@ -15,76 +16,74 @@ const element = {
   tpcText: document.querySelector("#tpc-text"),
   tpsText: document.querySelector("#tps-text"),
   upgradesContainer: document.querySelector("#upgrades-container"),
-  saveBtn: document.querySelector("#save-btn"),
-  loadBtn: document.querySelector("#load-btn"),
   upgradeTemplate: document.querySelector("#upgrade-template"),
 };
 
-// MAJ UI
 
-function updateUI(){
-    if (element.score) element.score.textContent = Math.floor(game.score)
-    if (element.tpcText) element.tpcText.textContent = game.tpc
-    if (element.tpsText) element.tpsText.textContent = game.tps
-}
-// Click principal
+//Sauvegarde auto
 
-function onTrumpClick(){
-    game.score += game.tpc;
-    updateUI()
+function autoSave() {
+  localStorage.setItem("trump_clicker_save", JSON.stringify(game));
 }
 
-//Timer (pour les Trump/secode)
 
-function startAutoIncome(){
-    setInterval(() =>{
-        if (game.tps > 0) {
-            game.score += game.tps
-            updateUI()
-        }
-    }, 1000)
+//Chargement auto
+
+function autoLoad() {
+  const raw = localStorage.getItem("trump_clicker_save");
+  if (!raw) return;
+
+  try {
+    const data = JSON.parse(raw);
+
+    game.score = Number(data.score) || 0;
+    game.tpc = Number(data.tpc) || 1;
+    game.tps = Number(data.tps) || 0;
+    game.upgrades = data.upgrades || {};
+  } catch (e) {
+    console.error("Sauvegarde corrompue :", e);
+  }
 }
 
-//Save / Load
 
-function saveGame(){
-    localStorage.setItem("trump_clicker_save", JSON.stringify(game))
+//MAJ UI
+
+function updateUI() {
+  if (element.score) element.score.textContent = Math.floor(game.score);
+  if (element.tpcText) element.tpcText.textContent = game.tpc;
+  if (element.tpsText) element.tpsText.textContent = game.tps;
 }
 
-function loadGame(){
-    const raw = localStorage.getItem("trump_clicker_save")
-    if (!raw) return
+//Click principal
 
-    try{
-        const data = JSON.parse(raw)
+function onTrumpClick() {
+  game.score += game.tpc;
+  updateUI();
+  autoSave();
+}
 
-        game.score = Number(data.score) || 0
-        game.tpc = Number(data.tpc) || 1
-        game.tps = Number(data.tps) || 0
-        game.upgrades = data.upgrades || {}
+//Trump par seconde
 
-        updateUI()
-    } catch (e) {
-        console.error("Sauvegarde corrompue :", e)
+let autoIncomeInterval = null;
+
+function startAutoIncome() {
+  if (autoIncomeInterval) return;
+
+  autoIncomeInterval = setInterval(() => {
+    if (game.tps > 0) {
+      game.score += game.tps;
+      updateUI();
+      autoSave();
     }
-}
-
-//Evènement
-
-if (element.trumpImage){
-    element.trumpImage.addEventListener("click", onTrumpClick)
-}
-
-if (element.saveBtn){
-    element.saveBtn.addEventListener("click", saveGame)
-}
-
-if (element.loadBtn){
-    element.loadBtn.addEventListener("click", loadGame)
+  }, 1000);
 }
 
 //Démarrage
 
-loadGame()
-updateUI()
-startAutoIncome()
+autoLoad();
+updateUI();
+startAutoIncome();
+
+if (element.trumpImage) {
+  element.trumpImage.addEventListener("click", onTrumpClick);
+}
