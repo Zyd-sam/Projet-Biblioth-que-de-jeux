@@ -15,24 +15,22 @@ body {
     background-color: #f4e9d8;
     color: #138d27;
     text-align: center;
-    padding: 30px;
+    padding: 20px;
 }
 
 h1 {
-  font-size: 3rem;
+  font-size: 4rem;
   letter-spacing: 2px;
   margin-right: 600px;
-  text-transform: uppercase;
-  color: #ffffff;
-  text-shadow:
-    0 1px 0 #138d27,
-    0 2px 0 #138d27,
-    0 3px 0 #138d27,
-    0 4px 0 #138d27,
-    0 6px 10px rgba(0, 0, 0, 0.4);
-
   margin-bottom: 30px;
-}
+  text-transform: uppercase;
+  color: #e8b10d;
+  text-shadow:
+    0 1px 0 #ff0000,
+    0 2px 0 #ff0000,
+    0 3px 0 #ff0000,
+    0 4px 0 #ff0000;
+  }
 
 
 /* --- CONTAINER --- */
@@ -89,7 +87,7 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .dos-cartes {
@@ -120,8 +118,8 @@ h1 {
 }
 /* --- Bouton START AGAIN --- */
 .START-AGAIN {
-  background-color: #4CAF50; /* vert */
-  color: white;              /* texte blanc */
+  background-color: #e8b10d; /* vert */
+  color: rgb(0, 0, 0);              /* texte blanc */
   padding: 3px 6px;        /* taille du bouton */
   font-size: 16px;
   font-weight: bold;
