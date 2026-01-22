@@ -17,6 +17,8 @@ const element = {
   tpsText: document.querySelector("#tps-text"),
   upgradesContainer: document.querySelector("#upgrades-container"),
   upgradeTemplate: document.querySelector("#upgrade-template"),
+  buyTpcBtn: document.querySelector("#buy-tpc-upgrade"),
+tpcUpgradeCostText: document.querySelector("#tpc-upgrade-cost")
 };
 
 
@@ -87,3 +89,18 @@ startAutoIncome();
 if (element.trumpImage) {
   element.trumpImage.addEventListener("click", onTrumpClick);
 }
+
+//Amélioration Trump par click
+
+const tpcUpgrade ={
+    level: 0,
+    baseCost: 10,
+    costMultiplier: 1.5, //50% d'augmentation à chaque upgrade (TEMPORAIRE)
+    augmentationParLvl: 1
+}
+
+function getTpcUpgradeCost(){
+    return Math.floor(tpcUpgrade.baseCost * (tpcUpgrade.costMultiplier ** tpcUpgrade.level))
+}
+
+function updateTpcUpgr
