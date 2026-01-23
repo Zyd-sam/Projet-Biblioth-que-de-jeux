@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
@@ -17,7 +17,7 @@
 
           <div class="trump-img-container">
             <img
-              src=""
+              src="Assets/donald-trump-face-png-30.png"
               alt="Tête de Trump"
               class="trump-image"
               draggable="false"
@@ -37,7 +37,7 @@
                 <p class="cost-text">
                   <span class="upgrade-cost" data-cost-id="{{id}}">{{cost}}</span>
                 </p>
-                <img src="" alt="Trump" class="trump-img" />
+                <img src="Assets/donald-trump-face-png-30.png" alt="Trump" class="trump-img" />
               </div>
             </div>
 
@@ -58,6 +58,10 @@
         <div class="right">
           <div class="right-navbar">
             <div id="upgrades-nav-button">Amélioration</div>
+            <button id="buy-tpc-upgrade" class="util-button">
+                Coût :<span id="tpc-upgrade-cost">10</span>
+            </button>
+
             <div id="skills-nav-button">Compétence</div>
           </div>
 
@@ -71,13 +75,8 @@
           <p>Trump/seconde: <span id="tps-text" class="color-text">0</span></p>
         </div>
       </div>
-
-      <div class="util-buttons">
-        <button class="util-button" id="save-btn">Sauvegarder</button>
-        <button class="util-button" id="load-btn">Charger</button>
-      </div>
     </section>
 
-    <script type="module" src=""></script>
+    <script type="module" src="JavaScript/script.js"></script>
   </body>
 </html>
