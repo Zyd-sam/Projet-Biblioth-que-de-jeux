@@ -12,7 +12,7 @@ const game = {
 const tpcUpgrade = {
   level: 0,
   baseCost: 10,
-  costMultiplier: 1.5, // +50% à chaque achat
+  costMultiplier: 1.3, // +30% à chaque achat
   augmentationParLvl: 1,
 };
 
