@@ -1,5 +1,15 @@
 const cartes = document.querySelectorAll(".cartes");
-const symboles = ["☎️","📻","📺","🎞️","💿","🎵","🕰️","🚗"];
+const symboles = [
+  "images/carte1.png",
+  "images/carte2.png",
+  "images/carte3.png",
+  "images/carte4.png",
+  "images/carte5.png",
+  "images/carte6.png",
+  "images/carte7.png",
+  "images/carte8.png"
+];
+
 let jeu = [...symboles, ...symboles];
 
 // Mélange des symboles
@@ -14,7 +24,13 @@ cartes.forEach((carte, index) => {
     carte.dataset.symbole = jeu[index];
     // Ajouter le symbole dans la face de la carte
     const faceCartes = carte.querySelector('.face-cartes');
-    faceCartes.textContent = jeu[index];
+    const imgPath = jeu[index];
+const isSpecial = imgPath.includes("carte7.png");
+
+faceCartes.innerHTML = `
+  <img src="${imgPath}" class="img-carte ${isSpecial ? "carte-speciale" : ""}">
+`;
+
     
     carte.addEventListener("click", () => {
         if (bloquer || carte.classList.contains("retournee")) return;
@@ -60,7 +76,8 @@ function nouvellePartie() {
     cartes.forEach((carte, index) => {
         carte.classList.remove("retournee", "trouvee");
         carte.dataset.symbole = jeu[index];
-        carte.querySelector('.face-cartes').textContent = jeu[index];
+        carte.querySelector('.face-cartes').innerHTML =
+  `<img src="${jeu[index]}" class="img-carte">`;
     });
 }
 
