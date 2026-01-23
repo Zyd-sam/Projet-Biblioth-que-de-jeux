@@ -1,3 +1,5 @@
+//Mise à Jour le 23/01 à 09h29
+
 // ÉTAT DU JEU
 const game = {
   score: 0, // Trump total
